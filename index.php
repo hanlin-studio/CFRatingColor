@@ -72,7 +72,8 @@ if ($rating >= 2900) {        //开始根据Rating判断段位
     $name = "-Unrated  ";
     $color = "-black.svg";
 }
-header($badgehd . $user . $name . $ratstr . $color . $style); //拼接并输出
+$rawr = $badgehd . $user . $name . $ratstr . $color . $style;
+header(str_replace("_", "__", $rawr)); //拼接并输出（修复下划线转义bug）
 
 ?>
 
