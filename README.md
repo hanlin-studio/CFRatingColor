@@ -35,3 +35,7 @@ style：Shields.io的主题，可以不填，默认是for-the-badge
 ## 最后
 这是我从深夜肝到凌晨的成果，先在此求个**star**先。  
 该API的运行离不开Codeforces和Shields.io的API提供，向他们致以诚挚的感谢。
+
+
+**感谢YangYunFei(@Anguei)，协助我找出了80%的bug。**
+~~（项目一上线就修bug，真实）
