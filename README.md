@@ -5,7 +5,10 @@
 
 
 ## 使用方法
-**访问数过多，会造成限制导致蹦Unrated！暂时无解**
+~~**访问数过多，会造成限制导致蹦Unrated！暂时无解**~~    
+多次检测，麻麻再也不用担心假Unrated了！
+
+
 
 以下是两个示例：**由于启用了longCache，第一次调用时可能较慢**    
 [http://cfrating.ihcr.top/?user=tourist](http://cfrating.ihcr.top/?user=tourist)    
