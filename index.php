@@ -77,7 +77,7 @@ if ($rating >= 3000) {        //开始根据Rating判断段位~
     $color = "-black.svg";
 }
 $rawc1 = str_replace("_", "__", $user);
-$rawc2 = str_replace("-", "--", $user);
+$rawc2 = str_replace("-", "--", $rawc1);
 $rawr = $badgehd . $rawc2 . $name . $ratstr . $color . $style;
 header($rawr); //拼接并输出（修复下划线转义bug）
 
