@@ -64,7 +64,7 @@ if ($rating >= 2900) {        //开始根据Rating判断段位
     $color = "-03a89e.svg";
 } elseif ($rating >= 1200) {
     $name = "-Pupil  ";
-    $color = "-green.svg";
+    $color = "-008000.svg";
 } elseif ($rating > 0) {
     $name = "-Newbie  ";
     $color = "-808080.svg";
