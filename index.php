@@ -14,6 +14,12 @@ $badgehd = "Location:https://img.shields.io/badge/";
 set_time_limit(600);
 $mainUrl = "http://codeforces.com/api/user.info?handles=*";
 $ratingr = getData(str_replace("*", $user, $mainUrl));  //获取json数据并转换为数组
+if($ratingr["status"] !== "OK"){
+    $ratingr = getData(str_replace("*", $user, $mainUrl));
+    if($ratingr["status"] !== "OK"){
+      $ratingr = getData(str_replace("*", $user, $mainUrl));  //简单判断两次（多了超载）
+    }
+}
 $styleraw = "?longCache=true&style=*";
 if (isset($_GET["style"])) //是否使用自定义style
 {
