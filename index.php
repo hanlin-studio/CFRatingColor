@@ -38,7 +38,7 @@ function getData($url) {
 }
 $ratstr = $ratingr["result"][0]["rating"];   //从数组中提取字符串rating
 $rating = intval($ratstr);    //转换为数字
-if ($rating >= 3000) {        //开始根据Rating判断段位
+if ($rating >= 3000) {        //开始根据Rating判断段位~
     $name = "-Legendary Grandmaster  ";
     $color = "-red.svg";
 } elseif ($rating >= 2600) {
