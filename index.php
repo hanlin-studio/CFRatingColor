@@ -10,6 +10,7 @@
 
 $user = $_GET["user"];
 $st = $_GET["style"];
+$st1 = $_GET["st"];
 $badgehd = "Location:https://img.shields.io/badge/";
 set_time_limit(600);
 $mainUrl = "http://codeforces.com/api/user.info?handles=*";
@@ -26,6 +27,15 @@ if (isset($_GET["style"])) //是否使用自定义style
 } else {
     $style = "?longCache=true&style=for-the-badge";  //默认是for-the-badge
 }
+if (isset($_GET["st"])) //自定义style缩写，不可重用
+{
+   switch($st1){
+     case "f1" : $style = "?longCache=true&style=flat";break;
+     case "f2" : $style = "?longCache=true&style=flat-square";break;
+     default: break;
+}
+    
+} 
 function getData($url) {
     $headers = array();
     $ch = curl_init();
