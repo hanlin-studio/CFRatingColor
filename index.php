@@ -79,7 +79,7 @@ if ($rating >= 3000) {        //开始根据Rating判断段位~
 } elseif ($rating >= 1200) {
     $name = "-Pupil  ";
     $color = "-008000.svg";
-} elseif ($rating > 0) {
+} elseif (in_array("rating",$ratingr["result"][0])) {   //这里可能翻车，有问题请及时反馈
     $name = "-Newbie  ";
     $color = "-808080.svg";
 } else {
