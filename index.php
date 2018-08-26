@@ -13,19 +13,9 @@ $st = $_GET["style"];
 $badgehd = "Location:https://img.shields.io/badge/";
 set_time_limit(600);
 $mainUrl = "http://codeforces.com/api/user.info?handles=*";
-$ratingr = getData(str_replace("*", $user, $mainUrl));  //获取json数据并转换为数组
-if($ratingr["status"] !== "OK"){
-    $ratingr = getData(str_replace("*", $user, $mainUrl));
-    if($ratingr["status"] !== "OK"){
-      $ratingr = getData(str_replace("*", $user, $mainUrl));  
-      if($ratingr["status"] !== "OK"){
-         $ratingr = getData(str_replace("*", $user, $mainUrl));  
-         if($ratingr["status"] !== "OK"){
-             $ratingr = getData(str_replace("*", $user, $mainUrl));  
-         }
-      }
-    }
-}
+do {   //发现真Unrated会返回OK....所以试下新操作
+  $ratingr = getData(str_replace("*", $user, $mainUrl));  //获取json数据并转换为数组
+} while ($ratingr["status"] !== "OK )";
 $styleraw = "?longCache=true&style=*";
 if (isset($_GET["style"])) //是否使用自定义style
 {
