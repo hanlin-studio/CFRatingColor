@@ -13,9 +13,11 @@ $st = $_GET["style"];
 $badgehd = "Location:https://img.shields.io/badge/";
 set_time_limit(600);
 $mainUrl = "http://codeforces.com/api/user.info?handles=*";
+$timeo = 0;
 do {   //发现真Unrated会返回OK....所以试下新操作
   $ratingr = getData(str_replace("*", $user, $mainUrl));  //获取json数据并转换为数组
-} while ($ratingr["status"] !== "OK");
+  $timeo = $timeo +1;
+} while ($ratingr["status"] !== "OK" and $ratingr["comment"] !== "handles: User with handle ".$user." not found" and $timeo !== 12);
 $styleraw = "?longCache=true&style=*";
 if (isset($_GET["style"])) //是否使用自定义style
 {
@@ -74,8 +76,10 @@ if ($rating >= 3000) {        //开始根据Rating判断段位~
     $name = "-Unrated  ";
     $color = "-black.svg";
 }
-$rawr = $badgehd . $user . $name . $ratstr . $color . $style;
-header(str_replace("_", "__", $rawr)); //拼接并输出（修复下划线转义bug）
+$rawc1 = str_replace("_", "__", $user);
+$rawc2 = str_replace("-", "--", $user);
+$rawr = $badgehd . $rawc2 . $name . $ratstr . $color . $style;
+header($rawr); //拼接并输出（修复下划线转义bug）
 
 ?>
 
