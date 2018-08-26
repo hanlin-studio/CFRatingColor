@@ -17,7 +17,13 @@ $ratingr = getData(str_replace("*", $user, $mainUrl));  //获取json数据并转
 if($ratingr["status"] !== "OK"){
     $ratingr = getData(str_replace("*", $user, $mainUrl));
     if($ratingr["status"] !== "OK"){
-      $ratingr = getData(str_replace("*", $user, $mainUrl));  //简单判断两次（多了超载）
+      $ratingr = getData(str_replace("*", $user, $mainUrl));  
+      if($ratingr["status"] !== "OK"){
+         $ratingr = getData(str_replace("*", $user, $mainUrl));  
+         if($ratingr["status"] !== "OK"){
+             $ratingr = getData(str_replace("*", $user, $mainUrl));  
+         }
+      }
     }
 }
 $styleraw = "?longCache=true&style=*";
