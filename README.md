@@ -22,7 +22,14 @@
 
 user：您想要获取的用户    
 style：Shields.io的主题，可以不填，默认是for-the-badge   
-**更多主题字符串可去[https://shields.io](https://shields.io)查看！**
+**更多主题字符串可去[https://shields.io](https://shields.io)查看！**  
+
+**新版更新资瓷了缩写：**
+使用st函数传入，不可与style传入重用。  
+目前手工定义：  
+- f1 -> flat
+- f2 -> flat-square
+
 
 
 ## 在自己服务器上搭建
