@@ -11,10 +11,10 @@
 
 
 以下是两个示例：**由于启用了longCache，第一次调用时可能较慢**    
-[http://cfrating.ihcr.top/?user=tourist](http://cfrating.ihcr.top/?user=tourist)    
-![http://cfrating.ihcr.top/?user=tourist](http://cfrating.ihcr.top/?user=tourist)    
-[http://cfrating.ihcr.top/?user=YangYunFei&style=flat-square](http://cfrating.ihcr.top/?user=YangYunFei&style=flat-square)    
-![http://cfrating.ihcr.top/?user=YangYunFei&style=flat-square](http://cfrating.ihcr.top/?user=YangYunFei&style=flat-square)  
+[https://cfrating.ihcr.top/?user=tourist](https://cfrating.ihcr.top/?user=tourist)    
+![https://cfrating.ihcr.top/?user=tourist](https://cfrating.ihcr.top/?user=tourist)    
+[https://cfrating.ihcr.top/?user=YangYunFei&style=flat-square](https://cfrating.ihcr.top/?user=YangYunFei&style=flat-square)    
+![https://cfrating.ihcr.top/?user=YangYunFei&style=flat-square](https://cfrating.ihcr.top/?user=YangYunFei&style=flat-square)  
 
 
 参数如您所见：   
