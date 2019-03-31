@@ -86,6 +86,7 @@ if ($rating >= 3000) {        //开始根据Rating判断段位~
     $name = "-Unrated  ";
     $color = "-black.svg";
 }
+$style = $style. "&logo=Codeforces&link=https://codeforces.com/profile/" . $user; 
 $rawc1 = str_replace("_", "__", $user);
 $rawc2 = str_replace("-", "--", $rawc1);
 $rawr = $badgehd . $rawc2 . $name . $ratstr . $color . $style;
