@@ -50,16 +50,17 @@ function escapehandle($user)
     return $result;
 }
 
-function getimage($handle, $rank, $color, $rating, $style)
+function getimage($handle, $rank, $color, $rating, $style, $link = false)
 {
     global $badgeUrl;
     $url = $badgeUrl .
         escapehandle($handle) . "-" .
         rawurlencode($rank . "  " . $rating . "-") .
-        $color . ".svg" . 
+        $color . ".svg" .
         $style .
         "&logo=Codeforces" .
-        "&link=https://codeforces.com/profile/" . $handle;
+        ($link ? "&link=https://codeforces.com/profile/" . $handle : "");
+    error_log("Request url: " . $url, 0);
     return file_get_contents($url);
 }
 
@@ -122,6 +123,4 @@ $rank = $response["result"][0]["rank"] == null ?
     ucwords($response["result"][0]["rank"]);
 $color = COLORS[$rank];
 
-error_log("Request url: " . $url, 0);
-
-echo getimage($handle, $rank, $color, $rating, $style);
+echo getimage($handle, $rank, $color, $rating, $style, true);
