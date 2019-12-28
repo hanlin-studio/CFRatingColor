@@ -10,17 +10,17 @@
 // $Id:$
 
 const COLORS = [
-    "Legendary Grandmaster" => "ff0000.svg",
-    "International Grandmaster" => "ff0000.svg",
-    "Grandmaster" => "ff0000.svg",
-    "International Master" => "ff8c00.svg",
-    "Master" => "ff8c00.svg",
-    "Candidate Master" => "aa00aa.svg",
-    "Expert" => "0000ff.svg",
-    "Specialist" => "03a89e.svg",
-    "Pupil" => "008000.svg",
-    "Newbie" => "808080.svg",
-    "Unrated" => "000000.svg"
+    "Legendary Grandmaster" => "ff0000",
+    "International Grandmaster" => "ff0000",
+    "Grandmaster" => "ff0000",
+    "International Master" => "ff8c00",
+    "Master" => "ff8c00",
+    "Candidate Master" => "aa00aa",
+    "Expert" => "0000ff",
+    "Specialist" => "03a89e",
+    "Pupil" => "008000",
+    "Newbie" => "808080",
+    "Unrated" => "000000"
 ];
 
 $badgeUrl = "http://localhost:8080/badge/"; // 使用本地搭建的Shields服务
@@ -43,38 +43,33 @@ function getdata($url)
     return $result;
 }
 
-function escapeuserrank($user)
+function escapehandle($user)
 {
     $result = str_replace("_", "__", $user);
     $result = str_replace("-", "--", $result);
     return $result;
 }
 
-if (!isset($_GET["user"]) || $_GET["user"] == "") {
-    http_response_code(404);
-    die("handles: Field should not be empty");
+function getimage($handle, $rank, $color, $rating, $style)
+{
+    global $badgeUrl;
+    $url = $badgeUrl .
+        escapehandle($handle) . "-" .
+        rawurlencode($rank . "  " . $rating . "-") .
+        $color . ".svg" . 
+        $style .
+        "&logo=Codeforces" .
+        "&link=https://codeforces.com/profile/" . $handle;
+    return file_get_contents($url);
 }
 
-$user = trim($_GET["user"]);
-set_time_limit(600);
-$timeo = 0;
-do {   //发现真Unrated会返回OK....所以试下新操作
-    $response = getdata($mainUrl . rawurlencode($_GET["user"]));  //获取json数据并转换为数组
-    $timeo = $timeo + 1;
-} while (
-    $response["status"] !== "OK" and
-    !preg_match("/handles: User with handle .* not found/", $response["comment"]) and
-    $response["comment"] !== "handles: Field should not be empty" and
-    $timeo !== 12
-);
+header("Content-Type: image/svg+xml");
 
-if ($response["status"] !== "OK") {
-    http_response_code(404);
-    error_log("Query " . $user . " failed in " . $timeo . " time(s).", 0);
-    die($response["comment"]);
+if ($_SERVER['REQUEST_METHOD'] !== "GET") {
+    http_response_code(405);
+    echo getimage("405", "method not allowed", "critical", null, $style);
+    die;
 }
-
-error_log("Query " . $user . " success in " . $timeo . " time(s).", 0);
 
 if (isset($_GET["style"])) { //是否使用自定义style
     $style = "?longCache=true&style=" . $_GET["style"];
@@ -94,6 +89,32 @@ if (isset($_GET["st"])) { //自定义style缩写，不可重用
     }
 }
 
+$user = trim($_GET["user"]);
+set_time_limit(600);
+$timeo = 0;
+if (!isset($_GET["user"]) || $_GET["user"] == "") {
+    http_response_code(404);
+    echo getimage("404", "user not found", "critical", null, $style);
+    die;
+}
+do {   //发现真Unrated会返回OK....所以试下新操作
+    $response = getdata($mainUrl . rawurlencode($_GET["user"]));  //获取json数据并转换为数组
+    $timeo = $timeo + 1;
+} while (
+    $response["status"] !== "OK" and
+    !preg_match("/handles:.*/", $response["comment"]) and
+    $timeo !== 12
+);
+
+if ($response["status"] !== "OK") {
+    http_response_code(404);
+    error_log("Query " . $user . " failed in " . $timeo . " time(s).", 0);
+    echo getimage("404", "user not found", "critical", null, $style);
+    die;
+}
+
+error_log("Query " . $user . " success in " . $timeo . " time(s).", 0);
+
 $handle = $response["result"][0]["handle"];
 $rating = $response["result"][0]["rating"];
 $rank = $response["result"][0]["rank"] == null ?
@@ -101,15 +122,6 @@ $rank = $response["result"][0]["rank"] == null ?
     ucwords($response["result"][0]["rank"]);
 $color = COLORS[$rank];
 
-$url = $badgeUrl .
-    escapeuserrank($handle) . "-" .
-    rawurlencode($rank . "  " . $rating . "-") .
-    $color .
-    $style .
-    "&logo=Codeforces" .
-    "&link=https://codeforces.com/profile/" . $handle;
-
 error_log("Request url: " . $url, 0);
 
-header("Content-Type: image/svg+xml");
-echo file_get_contents($url);
+echo getimage($handle, $rank, $color, $rating, $style);
